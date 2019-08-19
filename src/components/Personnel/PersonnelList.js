@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PersonnelCard from './PersonnelCard'
 
-const PERSONNEL_LIST_URL = 'http://localhost:4001/personnel/list/1'
+const PERSONNEL_LIST_URL = process.env.REACT_APP_BASE_URL + 'personnel/list/1'
 
 const PersonnelList = () => {
   const [data, setData] = useState({personnels: [], isFetching: false})

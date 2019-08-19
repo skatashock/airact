@@ -7,7 +7,7 @@ const PersonnelView = (props) => {
   useEffect(() => {
     const fetchPersonnel = async () => {
       try {
-        const PERSONNEL_VIEW_URL = 'http://localhost:4001/personnel/view/' + props.match.params.id
+        const PERSONNEL_VIEW_URL = process.env.REACT_APP_BASE_URL + 'personnel/view/' + props.match.params.id
         setData({ personnel: data.personnel, isFetching: true })
         const response = await axios.get(PERSONNEL_VIEW_URL)
         setData({ personnel: response.data, isFetching: false })
