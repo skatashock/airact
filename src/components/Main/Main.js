@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route } from "react-router-dom"
-import { PersonnelList } from '../Personnel'
+import { PersonnelList, PersonnelView } from '../Personnel'
 import Container from "react-bootstrap/Container";
 
 const Main = () => (
@@ -8,6 +8,8 @@ const Main = () => (
     <Container>
       <Switch>
         <Route exact path="/" component={PersonnelList} />
+        <Route path="/personnel/list" component={PersonnelList} />
+        <Route path="/personnel/view/:id" component={PersonnelView} />
       </Switch>
     </Container>
   </main>
