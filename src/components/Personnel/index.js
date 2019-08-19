@@ -1,4 +1,4 @@
-import Personnel from './Personnel'
+import PersonnelView from './PersonnelView'
 import PersonnelList from './PersonnelList'
 
-export { Personnel, PersonnelList }
+export { PersonnelView, PersonnelList }
