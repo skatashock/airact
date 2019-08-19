@@ -24,7 +24,18 @@ const PersonnelView = (props) => {
   return (
     <div>
       <p><Link to="/">Go Back</Link></p>
-      {data.personnel.name}
+      <ul>
+        <li>Name: {data.personnel.name}</li>
+        <li>Title: {data.personnel.title}</li>
+        <li>Department:</li>
+        <li>Social Security #: {data.personnel.ssn}</li>
+        <li>Home Address: {data.personnel.address}</li>
+        <li>Main Email: {data.personnel.email}</li>
+        <li>Birthdate: {data.personnel.birthdate}</li>
+        <li>Date of Hire: {data.personnel.hiredDate}</li>
+        <li>Reporting To: {data.personnel.reportingTo}</li>
+        <li>Status: {data.personnel.status}</li>
+      </ul>
       <p>{data.isFetching ? 'Fetching user details...' : ''}</p>
     </div>
   )
