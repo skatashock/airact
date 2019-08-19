@@ -6,17 +6,16 @@ import Form from 'react-bootstrap/Form'
 const PERSONNEL_LIST_URL = process.env.REACT_APP_BASE_URL + 'personnel/list/1'
 
 const PersonnelList = () => {
-  const [data, setData] = useState({personnels: [], isFetching: false})
+  const [data, setData] = useState({personnels: [], filteredPersonnels: [], isFetching: false})
 
   useEffect(() => {
     const fetchPersonnels = async () => {
       try {
-        setData({personnels: data.personnels, isFetching: true})
         const response = await axios.get(PERSONNEL_LIST_URL)
-        setData({personnels: response.data, isFetching: false})
+        setData({personnels: response.data, filteredPersonnels: response.data, isFetching: false})
       } catch (e) {
         console.log(e)
-        setData({personnels: data.personnels, isFetching: false})
+        setData({personnels: data.personnels, filteredPersonnels: data.personnels, isFetching: false})
       }
     }
     fetchPersonnels()
@@ -31,18 +30,18 @@ const PersonnelList = () => {
         event.target.value.toLowerCase()) !== -1
     })
 
-    setData({ personnels: filteredPersonnels, isFetching: false })
+    setData({ personnels: data.personnels, filteredPersonnels: filteredPersonnels, isFetching: false })
 
     //setData({ personnels: filteredPersonnels, isFetching: false })
   }
 
   return (
     <React.Fragment>
-      <Form.Control size="lg" type="text" placeholder="Filter employee name" 
+      <Form.Control size="lg" type="text" placeholder="Filter name" 
         onChange={handleFilter}
       />
       <div className="row mb-4 mt-2">
-        {data.personnels.map(item => (
+        {data.filteredPersonnels.map(item => (
           <PersonnelCard key={item.id} {...item} />
         ))}
       </div>
