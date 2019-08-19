@@ -4,23 +4,21 @@ import PersonnelCard from './PersonnelCard'
 import Form from 'react-bootstrap/Form'
 
 const PERSONNEL_LIST_URL = process.env.REACT_APP_BASE_URL + 'personnel/list/1'
-
+const useMountEffect = (fun) => useEffect(fun, [])
 const PersonnelList = () => {
   const [data, setData] = useState({personnels: [], filteredPersonnels: [], isFetching: false})
 
-  useEffect(() => {
+  useMountEffect(() => {
     const fetchPersonnels = async () => {
       try {
         const response = await axios.get(PERSONNEL_LIST_URL)
         setData({personnels: response.data, filteredPersonnels: response.data, isFetching: false})
       } catch (e) {
         console.log(e)
-        setData({personnels: data.personnels, filteredPersonnels: data.personnels, isFetching: false})
       }
     }
     fetchPersonnels()
-    // eslint-disable-next-line
-  }, [])
+  })
 
   const handleFilter = (event) => {
     let filteredPersonnels = data.personnels
