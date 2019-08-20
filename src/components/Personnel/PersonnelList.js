@@ -5,15 +5,23 @@ import Form from 'react-bootstrap/Form'
 
 const PERSONNEL_LIST_URL = process.env.REACT_APP_BASE_URL + 'personnel/list/1'
 const useMountEffect = (fun) => useEffect(fun, [])
+
 const PersonnelList = () => {
-  const [data, setData] = useState({personnels: [], filteredPersonnels: [], isFetching: false})
+
+  const [personnels, setPersonnels] = useState([])
+  const [filtered, setFiltered] = useState([])
+  const [fetching, setFetching] = useState(false)
 
   useMountEffect(() => {
     const fetchPersonnels = async () => {
       try {
+        setFetching(true)
         const response = await axios.get(PERSONNEL_LIST_URL)
-        setData({personnels: response.data, filteredPersonnels: response.data, isFetching: false})
+        setPersonnels(response.data)
+        setFiltered(response.data)
+        setFetching(false)
       } catch (e) {
+        setFetching(false)
         console.log(e)
       }
     }
@@ -21,16 +29,14 @@ const PersonnelList = () => {
   })
 
   const handleFilter = (event) => {
-    let filteredPersonnels = data.personnels
+    let filteredPersonnels = personnels
     filteredPersonnels = filteredPersonnels.filter((item) => {
       let personnelName = item.name.toLowerCase()
       return personnelName.indexOf(
         event.target.value.toLowerCase()) !== -1
     })
 
-    setData({ personnels: data.personnels, filteredPersonnels: filteredPersonnels, isFetching: false })
-
-    //setData({ personnels: filteredPersonnels, isFetching: false })
+    setFiltered(filteredPersonnels)
   }
 
   return (
@@ -39,11 +45,11 @@ const PersonnelList = () => {
         onChange={handleFilter}
       />
       <div className="row mb-4 mt-2">
-        {data.filteredPersonnels.map(item => (
+        {filtered.map(item => (
           <PersonnelCard key={item.id} {...item} />
         ))}
       </div>
-      <p>{data.isFetching ? 'Fetching users...' : ''}</p>
+      <p>{fetching ? 'Fetching users...' : ''}</p>
     </React.Fragment>
   )
 }
