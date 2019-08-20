@@ -3,7 +3,8 @@ import axios from 'axios'
 import PersonnelCard from './PersonnelCard'
 import Form from 'react-bootstrap/Form'
 
-const PERSONNEL_LIST_URL = process.env.REACT_APP_BASE_URL + 'personnel/list/1'
+const BASE_URL = process.env.REACT_APP_BASE_URL
+const API_URL = BASE_URL + 'personnel/list/1'
 const useMountEffect = (fun) => useEffect(fun, [])
 
 const PersonnelList = () => {
@@ -16,7 +17,7 @@ const PersonnelList = () => {
     const fetchPersonnels = async () => {
       try {
         setFetching(true)
-        const response = await axios.get(PERSONNEL_LIST_URL)
+        const response = await axios.get(API_URL)
         setPersonnels(response.data)
         setFiltered(response.data)
         setFetching(false)
