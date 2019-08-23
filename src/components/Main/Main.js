@@ -1,15 +1,16 @@
 import React from 'react'
 import { Switch, Route } from "react-router-dom"
 import { PersonnelList, PersonnelView } from '../Personnel'
-import Container from "react-bootstrap/Container";
+import Container from "react-bootstrap/Container"
+import PrivateRoute from '../../utilities/PrivateRoute'
 
 const Main = () => (
   <main>
     <Container>
       <Switch>
-        <Route exact path="/" component={PersonnelList} />
-        <Route path="/personnel/list" component={PersonnelList} />
-        <Route path="/personnel/view/:id" component={PersonnelView} />
+        <PrivateRoute exact path="/" component={PersonnelList} />
+        <PrivateRoute path="/personnel/list" component={PersonnelList} />
+        <PrivateRoute path="/personnel/view/:id" component={PersonnelView} />
       </Switch>
     </Container>
   </main>
